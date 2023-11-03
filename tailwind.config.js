@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+const defaultTheme = require('tailwindcss/defaultTheme')
+const colors = require('tailwindcss/colors')
 export default {
   content: [
     "./resources/**/*.blade.php",
@@ -6,7 +8,12 @@ export default {
     "./resources/**/*.vue",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        sans: ['cairo', ...defaultTheme.fontFamily.sans],
+      },
+    },
+    
   },
   plugins: [],
 }

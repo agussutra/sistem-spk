@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\KriteriaController;
+use App\Http\Controllers\NasabahController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +17,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('pages.master.dashboard');
 });
+
+Route::get('/nasabah', [NasabahController::class, 'index'])->name('nasabah');
+Route::get('/user', [UserController::class, 'index'])->name('user');
+Route::get('/kriteria', [KriteriaController::class, 'index'])->name('kriteria');
