@@ -1,17 +1,17 @@
 @extends('pages.layout')
 @section('content')
 <!-- Content -->
-<div class="mt-2">
+<div class="mt-1">
     <!-- State cards -->
     <div class="grid grid-cols-1 gap-8 p-4 lg:grid-cols-2 xl:grid-cols-4">
         <!-- Value card -->
-        <div class="flex items-center justify-between p-4 bg-white rounded-md dark:bg-darker">
+        <div class="flex items-center justify-between p-4 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-md dark:bg-darker">
             <div>
                 <h6
-                    class="text-xs font-medium leading-none tracking-wider text-gray-500 uppercase dark:text-primary-light">
+                    class="text-xs font-medium leading-none tracking-wider text-white uppercase dark:text-primary-light">
                     Nilai
                 </h6>
-                <span class="text-xl font-semibold">30,000</span>
+                <span class="text-xl font-semibold text-white">30,000</span>
             </div>
             <div>
                 <span>
@@ -26,13 +26,13 @@
         </div>
 
         <!-- Users card -->
-        <div class="flex items-center justify-between p-4 bg-white rounded-md dark:bg-darker">
+        <div class="flex items-center justify-between p-4 bg-gradient-to-r from-green-400 to-yellow-300 rounded-md dark:bg-darker">
             <div>
                 <h6
-                    class="text-xs font-medium leading-none tracking-wider text-gray-500 uppercase dark:text-primary-light">
+                    class="text-xs font-medium leading-none tracking-wider text-white uppercase dark:text-primary-light">
                     Nasabah
                 </h6>
-                <span class="text-xl font-semibold">10</span>
+                <span class="text-xl font-semibold text-white">10</span>
             </div>
             <div>
                 <span>
@@ -47,13 +47,13 @@
         </div>
 
         <!-- Orders card -->
-        <div class="flex items-center justify-between p-4 bg-white rounded-md dark:bg-darker">
+        <div class="flex items-center justify-between p-4 bg-gradient-to-r from-indigo-400 to-pink-400 rounded-md dark:bg-darker">
             <div>
                 <h6
-                    class="text-xs font-medium leading-none tracking-wider text-gray-500 uppercase dark:text-primary-light">
+                    class="text-xs font-medium leading-none tracking-wider text-white uppercase dark:text-primary-light">
                     Data SPK
                 </h6>
-                <span class="text-xl font-semibold">20</span>
+                <span class="text-xl font-semibold text-white">20</span>
             </div>
             <div>
                 <span>
@@ -68,13 +68,13 @@
         </div>
 
         <!-- Tickets card -->
-        <div class="flex items-center justify-between p-4 bg-white rounded-md dark:bg-darker">
+        <div class="flex items-center justify-between p-4 bg-gradient-to-r from-teal-400 to-sky-400 rounded-md dark:bg-darker">
             <div>
                 <h6
-                    class="text-xs font-medium leading-none tracking-wider text-gray-500 uppercase dark:text-primary-light">
+                    class="text-xs font-medium leading-none tracking-wider text-white uppercase dark:text-primary-light">
                     Data Kriteria
                 </h6>
-                <span class="text-xl font-semibold">20,516</span>
+                <span class="text-xl font-semibold text-white">20,516</span>
             </div>
             <div>
                 <span>
@@ -88,5 +88,75 @@
             </div>
         </div>
     </div>
+    <div class="w-full bg-white p-3 rounded-md shadow-md mt-4">
+        <figure class="highcharts-figure">
+            <div id="container"></div>
+            <p class="highcharts-description">
+            </p>
+        </figure>
+    </div>
 </div>
+<script>
+    const chart = Highcharts.chart('container', {
+    title: {
+        text: 'Grafik Peningkatan Jumlah Nasabah Kredit',
+        align: 'left'
+    },
+    subtitle: {
+        text: '',
+        align: 'left'
+    },
+    colors: [
+        '#4caefe',
+        '#3fbdf3',
+        '#35c3e8',
+        '#2bc9dc',
+        '#20cfe1',
+        '#16d4e6',
+        '#0dd9db',
+        '#03dfd0',
+        '#00e4c5',
+        '#00e9ba',
+        '#00eeaf',
+        '#23e274'
+    ],
+    xAxis: {
+        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+    },
+    series: [{
+        type: 'column',
+        name: 'Unemployed',
+        borderRadius: 5,
+        colorByPoint: true,
+        data: [5412, 4977, 4730, 4437, 3947, 3707, 4143, 3609,
+            3311, 3072, 2899, 2887],
+        showInLegend: false
+    }]
+});
+
+document.getElementById('plain').addEventListener('click', () => {
+    chart.update({
+        chart: {
+            inverted: false,
+            polar: false
+        },
+        subtitle: {
+            text: ''
+        }
+    });
+});
+
+document.getElementById('inverted').addEventListener('click', () => {
+    chart.update({
+        chart: {
+            inverted: true,
+            polar: false
+        },
+        subtitle: {
+            text: ''
+        }
+    });
+});
+
+</script>
 @endsection
