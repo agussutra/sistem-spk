@@ -74,14 +74,14 @@ class="flex-shrink-0 hidden w-64 bg-black border-r dark:border-primary-darker da
                         class="@if(Request::is('kriteria')) bg-green-600 @endif menu-item block p-2 text-sm text-white transition-colors duration-200 rounded-md dark:text-gray-100 dark:hover:text-light hover:text-gray-100">
                         Kriteria
                     </a>
-                    <a href="#" role="menuitem"
-                        class="menu-item block p-2 text-sm text-white transition-colors duration-200 rounded-md dark:text-gray-100 dark:hover:text-light hover:text-gray-100">
+                    <a href="{{ route('sub_kriteria') }}" role="menuitem"
+                        class="@if(Request::is('sub_kriteria')) bg-green-600 @endif menu-item block p-2 text-sm text-white transition-colors duration-200 rounded-md dark:text-gray-100 dark:hover:text-light hover:text-gray-100">
                         Sub Kriteria
                     </a>
                 </div>
             </div>
-            <a href="#"
-                class=" menu-item flex items-center p-2 text-white transition-colors rounded-md dark:text-light hover:bg-primary-100 dark:hover:bg-primary">
+            <a href="{{ route('perhitungan_ahp') }}"
+                class="@if(Request::is('perhitungan_ahp')) bg-green-600 @endif menu-item flex items-center p-2 text-white transition-colors rounded-md dark:text-light hover:bg-primary-100 dark:hover:bg-primary">
                 <span aria-hidden="true">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24">
                         <path fill="currentColor"
@@ -90,8 +90,8 @@ class="flex-shrink-0 hidden w-64 bg-black border-r dark:border-primary-darker da
                 </span>
                 <span class="ml-2 text-sm">Perhitungan AHP</span>
             </a>
-            <a href="#"
-                class=" menu-item flex items-center p-2 text-white transition-colors rounded-md dark:text-light hover:bg-primary-100 dark:hover:bg-primary">
+            <a href="{{ route('laporan') }}"
+                class="@if(Request::is('laporan')) bg-green-600 @endif menu-item flex items-center p-2 text-white transition-colors rounded-md dark:text-light hover:bg-primary-100 dark:hover:bg-primary">
                 <span aria-hidden="true">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24">
                         <path fill="currentColor" d="M20 4h-1v9l-3-2.25L13 13V4H8v12h12z"
