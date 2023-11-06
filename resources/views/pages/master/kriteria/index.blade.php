@@ -10,22 +10,20 @@
 </div>
     <div>
         <div class="mb-4 text-2xl font-bold">
-            <p>Data Sub Kriteria</p>
+            <p>Data Kriteria</p>
         </div>
         <div class="card">
             <div class="flex justify-between mb-3">
                 <button type="button" class="btn-create openModal" id="createBtn">Tambah</button>
             </div>
-            <hr class="mb-2"> 
-            <div class="mb-5 p-2 bg-yellow-400 rounded-md">
-                <p>Kriteria: Nilai Jaminan</p>
-            </div>
+            <hr class="mb-2">
+
             {{-- list table --}}
             <div>
                 @include('components.table', [
-                    'headers' => ['No', 'Sub Kriteria', 'Keterangan','Nilai Bobot'],
-                    'data' => [['id' => '1', 'sub_kriteria' => 'pekerjaan', 'keterangan' => 'tentang pekerjaan', 'nilai_bobot' => '8']],
-                    'mapping' => ['__INCREMENT__', 'sub_kriteria', 'keterangan','nilai_bobot'],
+                    'headers' => ['No', 'Nama Kriteria', 'Kriteria'],
+                    'data' => $data,
+                    'mapping' => ['__INCREMENT__', 'nama_kriteria', 'kriteria'],
                     'actionUpdate' => true,
                     'actionDelete' => false,
                     'aksi' => true,
@@ -35,7 +33,7 @@
 
         {{-- modal --}}
         @include('components.modal', [
-            'form' => 'components.subkriteria.form',
+            'form' => 'components.kriteria.form',
         ])
 
     </div>
@@ -56,13 +54,11 @@
                     form.attr('method', formMethod);
 
                     // isian form
-                    const subKriteria = $(this).data('sub_kriteria');
-                    const keterangan = $(this).data('keterangan');
-                    const nilaiBobot = $(this).data('nilai_bobot');
+                    const bobot = $(this).data('bobot');
+                    const nama_kriteria = $(this).data('nama_kriteria');
 
-                    modal.find('#subkriteria').val(subKriteria);
-                    modal.find('#keterangan').val(keterangan);
-                    modal.find('#nilaibobot').val(nilaiBobot);
+                    modal.find('#bobot').val(bobot);
+                    modal.find('#nama_kriteria').val(nama_kriteria);
 
                     // isian form
 
@@ -78,13 +74,11 @@
                     form.attr('method', formMethod);
 
                     // isian form read
-                    const subKriteria = $(this).data('sub_kriteria');
-                    const keterangan = $(this).data('keterangan');
-                    const nilaiBobot = $(this).data('nilai_bobot');
+                    const bobot = $(this).data('bobot');
+                    const nama_kriteria = $(this).data('nama_kriteria');
 
-                    modal.find('#subkriteria').html(subKriteria);
-                    modal.find('#keterangan').html(keterangan);
-                    modal.find('#nilaibobot').html(nilaiBobot);
+                    modal.find('.bobot').html(bobot);
+                    modal.find('.nama_kriteria').html(nama_kriteria);
 
                     // isian form read
 
@@ -108,9 +102,8 @@
 
             $('.closeModal').on('click', function(e) {
                 $('#interestModal').addClass('hidden');
-                $('#subkriteria').val('');
-                $('#keterangan').val('');
-                $('#nilaibobot').val('');
+                $('#bobot').val('');
+                $('#nama_kriteria').val('');
             });
         });
 

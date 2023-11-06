@@ -70,11 +70,11 @@ class="flex-shrink-0 hidden w-64 bg-black border-r dark:border-primary-darker da
                     </span>
                 </a>
                 <div x-show="open" class="mt-2 space-y-2 px-7" role="menu" arial-label="Components">
-                    <a href="{{ route('kriteria') }}" role="menuitem"
+                    <a href="{{ route('kriteria.index') }}" role="menuitem"
                         class="@if(Request::is('kriteria')) bg-green-600 @endif menu-item block p-2 text-sm text-white transition-colors duration-200 rounded-md dark:text-gray-100 dark:hover:text-light hover:text-gray-100">
                         Kriteria
                     </a>
-                    <a href="{{ route('sub_kriteria') }}" role="menuitem"
+                    <a href="{{ route('sub_kriteria.index') }}" role="menuitem"
                         class="@if(Request::is('sub_kriteria')) bg-green-600 @endif menu-item block p-2 text-sm text-white transition-colors duration-200 rounded-md dark:text-gray-100 dark:hover:text-light hover:text-gray-100">
                         Sub Kriteria
                     </a>
@@ -102,18 +102,22 @@ class="flex-shrink-0 hidden w-64 bg-black border-r dark:border-primary-darker da
                 </span>
                 <span class="ml-2 text-sm">Laporan</span>
             </a>
-            <a href="#"
-                class=" menu-item flex items-center p-2 text-red-500 transition-colors rounded-md">
-                <span aria-hidden="true">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24">
-                        <path fill="currentColor"
-                            d="M6 2h9a2 2 0 0 1 2 2v2h-2V4H6v16h9v-2h2v2a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z" />
-                        <path fill="currentColor"
-                            d="M16.09 15.59L17.5 17l5-5l-5-5l-1.41 1.41L18.67 11H9v2h9.67z" />
-                    </svg>
-                </span>
-                <span class="ml-2 text-sm font-bold">Log Out</span>
-            </a>
+            <form action="/logout" method="POST">
+                @csrf
+                @method('DELETE')
+                <button type="submit"
+                    class=" menu-item flex items-center p-2 text-red-500 transition-colors rounded-md">
+                    <span aria-hidden="true">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24">
+                            <path fill="currentColor"
+                                d="M6 2h9a2 2 0 0 1 2 2v2h-2V4H6v16h9v-2h2v2a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z" />
+                            <path fill="currentColor"
+                                d="M16.09 15.59L17.5 17l5-5l-5-5l-1.41 1.41L18.67 11H9v2h9.67z" />
+                        </svg>
+                    </span>
+                    <span class="ml-2 text-sm font-bold">Log Out</span>
+                </button>
+            </form>
         </nav>
     </div>
 </div>

@@ -15,6 +15,8 @@
                 @foreach ($mapping as $field)
                     @if ($field === '__INCREMENT__')
                         <td class="border">{{ ++$index }}</td>
+                    @elseif (is_callable($field))
+                        <td class="border">{{ $field($item) }}</td>
                     @else
                         <td class="border">{{ $item[$field] }}</td>
                     @endif

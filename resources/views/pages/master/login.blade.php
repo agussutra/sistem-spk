@@ -31,8 +31,8 @@
         <div class="bg-slate-300 w-1/2">
             <div class="w-full h-full flex">
                 <div class="bg-white rounded-md shadow-md py-5 px-10 mx-auto my-auto">
-                    <p class="text-center mb-12 font-bold text-base text-gray-500">Sign In To <span class="text-green-500">Your Account !</span></p>
-                    <form action="">
+                    <form action="{{ route('login_action') }}" method="post">
+                        @csrf
                         <div class="flex mb-5">
                             <div class="mr-5 items-center flex">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" viewBox="0 0 24 24">
@@ -75,4 +75,49 @@
             </div>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @if(session()->has('error'))
+    <script>
+
+        const Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.onmouseenter = Swal.stopTimer;
+                toast.onmouseleave = Swal.resumeTimer;
+            }
+        });
+
+        Toast.fire({
+            icon: "error",
+            title: "{{session()->get('error')}}"
+        });
+
+    </script>
+    @endif
+    @if(session()->has('success'))
+    <script>
+
+        const Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.onmouseenter = Swal.stopTimer;
+                toast.onmouseleave = Swal.resumeTimer;
+            }
+        });
+
+        Toast.fire({
+            icon: "success",
+            title: "{{session()->get('success')}}"
+        });
+
+    </script>
+    @endif
 </body>

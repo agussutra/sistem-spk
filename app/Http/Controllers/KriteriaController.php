@@ -2,63 +2,35 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Traits\MasterCRUD;
 use Illuminate\Http\Request;
 
 class KriteriaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+
+    use MasterCRUD;
+
+    public function __construct()
     {
-        return view('pages.master.kriteria.list_kriteria');
+        $this->setViewFolder('pages.master.kriteria');
+        $this->setModel(\App\Models\Kriteria::class);
+        $this->setTitle('Kriteria');
+
+        $this->setValidationRule([
+            'nama_kriteria' => 'required', 
+            'bobot' => 'required', 
+            'kriteria' => 'required|in:BENEFIR,COST', 
+            'keterangan' => 'required'
+        ]);
+
+        $this->setValidationRuleMassage([
+            'nama_kriteria.required' => 'Masukan Nama Kriteria', 
+            'bobot.required' => 'Masukan Bobot Kriteria', 
+            'kriteria.required' => 'Masukan Tipe Kriteria',
+            'kriteria.in' => 'Tipe Kriteria harus BENEFIT atau COST', 
+            'keterangan.required' => 'Masukan Keterangan'
+        ]);
+
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
 }
