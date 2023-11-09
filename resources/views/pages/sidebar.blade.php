@@ -25,7 +25,7 @@ class="flex-shrink-0 hidden w-64 bg-black border-r dark:border-primary-darker da
                 <span class="ml-2 text-sm">Dashboard</span>
             </a>
 
-            <a href="{{ route('nasabah') }}"
+            <a href="{{ route('nasabah.index') }}"
                 class=" @if(Request::is('nasabah')) bg-green-600 @endif menu-item flex items-center p-2 text-white transition-colors rounded-md dark:text-light hover:bg-primary-100 dark:hover:bg-primary">
                 <span aria-hidden="true">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24">
@@ -36,7 +36,7 @@ class="flex-shrink-0 hidden w-64 bg-black border-r dark:border-primary-darker da
                 <span class="ml-2 text-sm">Nasabah</span>
             </a>
 
-            <a href="{{ route('user') }}"
+            <a href="{{ route('user.index') }}"
                 class="@if(Request::is('user')) bg-green-600 @endif menu-item flex items-center p-2 text-white transition-colors rounded-md dark:text-light hover:bg-primary-100 dark:hover:bg-primary">
                 <span aria-hidden="true">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24">
@@ -80,7 +80,14 @@ class="flex-shrink-0 hidden w-64 bg-black border-r dark:border-primary-darker da
                     </a>
                 </div>
             </div>
-            <a href="{{ route('perhitungan_ahp') }}"
+            {{-- <a href="{{ route('permohonan.index') }}"
+                class="@if(Request::is('permohonan')) bg-green-600 @endif menu-item flex items-center p-2 text-white transition-colors rounded-md dark:text-light hover:bg-primary-100 dark:hover:bg-primary">
+                <span aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24"><path fill="currentColor" d="M21.99 8c0-.72-.37-1.35-.94-1.7L12 1L2.95 6.3C2.38 6.65 2 7.28 2 8v10c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2l-.01-10zm-2 0v.01L12 13L4 8l8-4.68L19.99 8zM4 18v-7.66l8 5.02l7.99-4.99L20 18H4z"/></svg>
+                </span>
+                <span class="ml-2 text-sm">Permohonan</span>
+            </a> --}}
+            <a href="{{ route('perhitungan_ahp.index') }}"
                 class="@if(Request::is('perhitungan_ahp')) bg-green-600 @endif menu-item flex items-center p-2 text-white transition-colors rounded-md dark:text-light hover:bg-primary-100 dark:hover:bg-primary">
                 <span aria-hidden="true">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24">

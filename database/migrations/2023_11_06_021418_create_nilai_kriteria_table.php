@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('nilai_kriteria');
             $table->integer('nilai');
             $table->foreign('kode_kriteria')->references('kode')->on('kriteria');
+            $table->timestamps();
         });
     }
 

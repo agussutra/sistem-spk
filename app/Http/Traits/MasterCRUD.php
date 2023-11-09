@@ -65,11 +65,11 @@ trait MasterCRUD {
             if($validation->fails())
                 return redirect()->back()->with('error', $validation->errors()->first());
         }
-
         try {
             $this->model::create($request->all());
             return redirect()->back()->with('success', "Data {$this->title} berhasil dibuat");
         }catch(\Exception $ex) {
+            // @dd($ex->getMessage());
             return redirect()->back()->with('error', "Data {$this->title} gagal dibuat");
         }
 
@@ -89,21 +89,17 @@ trait MasterCRUD {
         }
 
         try {
-
-            $this->model->where($this->primary_key, $id)->update($request->all());
-
+            $this->model->where($this->model->getKeyName(), $id)->update($request->except(['_method', '_token']));
             return redirect()->back()->with('success', "Data {$this->title} berhasil diubah");
         }catch(\Exception $ex) {
             return redirect()->back()->with('error', "Data {$this->title} gagal diubah");
         }
-
-
     }
 
     public function destroy($id) {
         try {
 
-            $this->model->where($this->primary_key, $id)->delete();
+            $this->model->where($this->model->getKeyName(), $id)->delete();
 
             return redirect()->back()->with('success', "Data {$this->title} berhasil dihapus");
         }catch(\Exception $ex) {
