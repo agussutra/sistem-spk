@@ -10,40 +10,29 @@
     </div>
     <div>
         <div class="mb-4 text-2xl font-bold">
-            <p>Data Sub Kriteria</p>
+            <p>Data Nasabah</p>
         </div>
         <div class="card">
             <div class="flex justify-between mb-3">
-                <button type="button" class="btn-create openModal" id="createBtn" onclick="return tambahData();">Tambah</button>
+                <button type="button" class="btn-create" id="createBtn" onclick="tambahData()">Tambah</button>
             </div>
             <hr class="mb-2">
-            <div class="mb-5 p-2 bg-yellow-400 rounded-md">
-                <p>Kriteria: Nilai Jaminan</p>
-            </div>
+
             {{-- list table --}}
             <div>
                 @include('components.table', [
-                    'headers' => ['No', 'Kode', 'Kriteria', 'Nilai Kriteria', 'Nilai'],
+                    'headers' => ['No', 'Nama Nasabah', 'No Hp'],
                     'data' => $data,
-                    'mapping' => [
-                        '__INCREMENT__',
-                        'kode',
-                        function ($a) {
-                            return $a->kriteria?->nama_kriteria;
-                        },
-                        'nilai_kriteria',
-                        'nilai',
-                    ],
+                    'mapping' => ['__INCREMENT__', 'nama_nasabah','no_hp'],
                     'actionUpdate' => true,
-                    'actionDelete' => false,
+                    'actionDelete' => true,
                     'actionShow' => false,
                     'aksi' => true,
                 ])
             </div>
         </div>
 
-        {{-- modal --}}
-        <x-modal :formAction="$formAction" :formMethod="$formMethod" :formData="'components.subkriteria.form'" id="form" :kriteria="$kriteria" />
+        <x-modal :formAction="$formAction" :formMethod="$formMethod" :formData="'components.nasabah.form'" id="form"  />
 
     </div>
     <script>
@@ -53,17 +42,18 @@
 
         $('.closeModal').on('click', function(e) {
             $('#interestModal').addClass('hidden');
-            $('#kode').val('');
-            $('#kodekriteria').val('');
-            $('#nilaiKriteria').val('');
-            $('#nilai').val('');
+            $('#nama_nasabah').val('');
+            $('#no_hp').val('');
+            $('#alamat').val('');
+            $('#pekerjaan').val('');
+            $('#jk').val('');
         });
 
         function editData(item) {
             modal.find('#titleModal').html('Edit Data');
             modal.find('#btnModal').html('Edit');
 
-            const formAction = '{{ route('sub_kriteria.index') }}/' + item.kode;
+            const formAction = '{{ route('nasabah.index') }}/' + item.id;
             const formMethod = 'POST';
 
             form.append('<input type="hidden" value="PUT" name="_method"/>');
@@ -72,10 +62,11 @@
             form.attr('method', formMethod);
 
             // isian form
-            modal.find('#kode').val(item.kode);
-            modal.find('#kode_kriteria').val(item.kode_kriteria);
-            modal.find('#nilai_kriteria').val(item.nilai_kriteria);
-            modal.find('#nilai').val(item.nilai);
+            modal.find('#nama_nasabah').val(item.nama_nasabah);
+            modal.find('#no_hp').val(item.no_hp);
+            modal.find('#jk').val(item.jk);
+            modal.find('#alamat').val(item.alamat);
+            modal.find('#pekerjaan').val(item.pekerjaan);
 
             // isian form
             $('#form-modal').removeClass('hidden');
@@ -90,15 +81,39 @@
             modal.find('#btnModal').html('Tambah');
             form.append('<input type="hidden" value="POST" name="_method"/>');
 
-            const formAction = '{{ route('sub_kriteria.store') }}'
+            const formAction = '{{ route('nasabah.store') }}'
             const formMethod = 'POST';
 
             form.attr('action', formAction);
             form.attr('method', formMethod);
-            $('#kode').val('{{ App\Models\NilaiKriteria::generateUniqueKode() }}');
 
             $('#form-modal').removeClass('hidden');
             $('#form-modal-read').addClass('hidden');
+            modal.removeClass('hidden');
+        }
+
+
+        function hapusData(item) {
+
+            modal.find('#titleModal').html('Apakah Anda Yakin Ingin Menghapus Data Berikut ?');
+            modal.find('#btnModal').html('delete');
+            form.append('<input type="hidden" value="DELETE" name="_method"/>');
+
+            const formAction = '{{ route('nasabah.index') }}/' + item.id;
+            const formMethod = 'POST';
+
+            form.attr('action', formAction);
+            form.attr('method', formMethod);
+
+            // isian form read
+            modal.find('.nama_nasabah').html(item.nama_nasabah);
+            modal.find('.no_hp').html(item.no_hp);
+            modal.find('.alamat').html(item.alamat);
+            modal.find('.pekerjaan').html(item.pekerjaan);
+            modal.find('.jk').html((item.jk === 1) ? 'Laki-laki' : 'Perempuan');
+
+            $('#form-modal').addClass('hidden');
+            $('#form-modal-read').removeClass('hidden');
             modal.removeClass('hidden');
         }
 

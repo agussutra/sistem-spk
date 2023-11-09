@@ -10,7 +10,7 @@
 </div>
     <div>
         <div class="mb-4 text-2xl font-bold">
-            <p>Data Kriteria</p>
+            <p>Data Permohonan</p>
         </div>
         <div class="card">
             <div class="flex justify-between mb-3">
@@ -19,23 +19,26 @@
             <hr class="mb-2">
 
             {{-- list table --}}
-           @foreach ($data as $index )
-           @endforeach
             <div>
                 @include('components.table', [
-                    'headers' => ['No','Kode','Nama Kriteria', 'Kriteria'],
+                    'headers' => ['No','Nasabah','Status', 'Nominal Peminjaman'],
                     'data' => $data,
-                    'mapping' => ['__INCREMENT__' ,'kode', 'nama_kriteria', 'kriteria'],
+                    'mapping' => [
+                        '__INCREMENT__', 
+                        function ($a) {
+                            return $a->nasabah?->nama_nasabah;
+                        },
+                        'status', 
+                        'nominal_peminjaman'],
                     'actionUpdate' => true,
                     'actionDelete' => false,
-                    'actionShow' => false,
                     'aksi' => true,
                 ])
             </div>
         </div>
 
         {{-- modal --}}
-        <x-modal :formAction="$formAction" :formMethod="$formMethod" :formData="'components.kriteria.form'" id="form"  />
+        <x-modal :formAction="$formAction" :formMethod="$formMethod" :formData="'components.permohonan.form'" id="form" :nasabah="$nasabah"  />
 
     </div>
     <script>
@@ -45,17 +48,16 @@
 
         $('.closeModal').on('click', function(e) {
             $('#interestModal').addClass('hidden');
-            $('#nama_kriteria').val('');
-            $('#kode').val('');
-            $('#kriteria').val('');
-            $('#keterangan').val('');
+            $('#nasabah_id').val('');
+            $('#status').val('');
+            $('#nominal_peminjaman').val('');
         });
 
         function editData(item) {
             modal.find('#titleModal').html('Edit Data');
             modal.find('#btnModal').html('Edit');
 
-            const formAction = '{{ route('kriteria.index') }}/' + item.kode;
+            const formAction = '{{ route('permohonan.index') }}/' + item.id;
             const formMethod = 'POST';
 
             form.append('<input type="hidden" value="PUT" name="_method"/>');
@@ -64,11 +66,9 @@
             form.attr('method', formMethod);
 
             // isian form
-            modal.find('#kode').val(item.kode);
-            console.log(item.kode);
-            modal.find('#nama_kriteria').val(item.nama_kriteria);
-            modal.find('#kriteria').val(item.kriteria);
-            modal.find('#keterangan').val(item.keterangan);
+            modal.find('#nasabah_id').val(item.nasabah_id);
+            modal.find('#status').val(item.status);
+            modal.find('#nominal_peminjaman').val(item.nominal_peminjaman);
 
             // isian form
             $('#form-modal').removeClass('hidden');
@@ -83,13 +83,11 @@
             modal.find('#btnModal').html('Tambah');
             form.append('<input type="hidden" value="POST" name="_method"/>');
 
-            const formAction = '{{ route('kriteria.store') }}'
+            const formAction = '{{ route('permohonan.store') }}'
             const formMethod = 'POST';
 
             form.attr('action', formAction);
             form.attr('method', formMethod);
-            $('#kode').val('{{ App\Models\Kriteria::generateUniqueKode() }}');
-            
 
             $('#form-modal').removeClass('hidden');
             $('#form-modal-read').addClass('hidden');

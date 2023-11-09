@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('nama_kriteria');
             $table->enum('kriteria', ['BENEFIT', 'COST']);
             $table->text('keterangan');
+            $table->timestamps();
         });
     }
 

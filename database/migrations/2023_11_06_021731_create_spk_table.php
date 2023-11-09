@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreign('kode_kriteria')->references('kode')->on('kriteria');
             $table->foreign('kode_nilai_kriteria')->references('kode')->on('nilai_kriteria');
             $table->primary(['permohonan_id', 'kode_kriteria', 'kode_nilai_kriteria']);
+            $table->timestamps();
         });
     }
 
