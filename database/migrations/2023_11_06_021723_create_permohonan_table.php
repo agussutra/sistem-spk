@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('nasabah_id');
             $table->smallInteger('status')->default(0);
+            $table->decimal('nominal_peminjaman', 8, 2);
+            $table->timestamps();
         });
     }
 

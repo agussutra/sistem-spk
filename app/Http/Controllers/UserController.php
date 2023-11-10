@@ -2,63 +2,31 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Traits\MasterCRUD;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        
-        return view('pages.master.user.list_user');
-    }
+    use MasterCRUD;
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function __construct()
     {
-    }
+        $this->setViewFolder('pages.master.user');
+        $this->setModel(\App\Models\User::class);
+        $this->setTitle('User');
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        $this->setValidationRule([
+            'nama_user' => 'required', 
+            'username' => 'required', 
+            'password' => 'required', 
+            'jabatan' => 'required',
+        ]);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
+        $this->setValidationRuleMassage([
+            'nama_user.required' => 'Masukan Nama User', 
+            'username.required' => 'Masukan Username', 
+            'password.required' => 'Masukan Password',
+            'jabatan.required' => 'Masukan Jabatan', 
+        ]);
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
-}
+  }

@@ -7,7 +7,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NasabahController;
 use App\Http\Controllers\NilaiKriteriaController;
 use App\Http\Controllers\PerhitunganAhpController;
-use App\Http\Controllers\SubkriteriaController;
+use App\Http\Controllers\PermohonanController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -33,9 +33,10 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('kriteria', KriteriaController::class)->names('kriteria');
     Route::resource('sub_kriteria', NilaiKriteriaController::class)->names('sub_kriteria');
-    Route::get('/nasabah', [NasabahController::class, 'index'])->name('nasabah');
-    Route::get('/user', [UserController::class, 'index'])->name('user');
-    Route::get('/perhitungan_ahp', [PerhitunganAhpController::class, 'index'])->name('perhitungan_ahp');
+    Route::resource('nasabah', NasabahController::class)->names('nasabah');
+    Route::resource('user', UserController::class)->names('user');
+    Route::resource('perhitungan_ahp', PerhitunganAhpController::class)->names('perhitungan_ahp');
+    Route::resource('permohonan', PermohonanController::class)->names('permohonan');
     Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan');
 
     

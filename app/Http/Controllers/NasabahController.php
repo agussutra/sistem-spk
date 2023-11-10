@@ -2,63 +2,33 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Traits\MasterCRUD;
 use Illuminate\Http\Request;
 
 class NasabahController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        return view('pages.master.nasabah.list_nasabah');
-    }
+    use MasterCRUD;
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function __construct()
     {
-        //
-    }
+        $this->setViewFolder('pages.master.nasabah');
+        $this->setModel(\App\Models\Nasabah::class);
+        $this->setTitle('Nasabah');
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        $this->setValidationRule([
+            'nama_nasabah' => 'required', 
+            'no_hp' => 'required', 
+            'jk' => 'required', 
+            'pekerjaan' => 'required',
+            'alamat' => 'required'
+        ]);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        $this->setValidationRuleMassage([
+            'nama_nasabah.required' => 'Masukan Nama Nasabah', 
+            'no_hp.required' => 'Masukan No. Hp', 
+            'alamat.required' => 'Masukan Alamat',
+            'pekerjaan.required' => 'Masukan Pekerjaan', 
+            'jk.required' => 'Pilih Jenis Kelamin'
+        ]);
     }
 }

@@ -8,11 +8,18 @@ use Illuminate\Database\Eloquent\Model;
 class Spk extends Model
 {
     use HasFactory;
-
-    protected $table = 'spk';
+    
+    protected $table = 'Spk';
+    public $timestamps = false;
     protected $fillable = ['kode_kriteria', 'kode_nilai_kriteria', 'permohonan_id'];
 
-    public function nilai() {
-        return $this->belongsTo(NilaiKriteria::class, 'kode_nilai_kriteria', 'kode');
+
+    public function kriteria() {
+        return $this->hasOne(Kriteria::class, 'kode', 'kode_kriteria');
     }
+
+    public function nilaiKriteria() {
+        return $this->hasOne(NilaiKriteria::class, 'kode', 'kode_nilai_kriteria');
+    }
+
 }

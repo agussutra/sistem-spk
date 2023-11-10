@@ -5,7 +5,7 @@
                 <th class="border">{{ $header }}</th>
             @endforeach
             @if ($aksi == true)
-            <th class="border">Aksi</th>
+                <th class="border">Aksi</th>
             @endif
         </tr>
     </thead>
@@ -14,35 +14,40 @@
             <tr>
                 @foreach ($mapping as $field)
                     @if ($field === '__INCREMENT__')
-                        <td class="border">{{ ++$index }}</td>
+                        <td class="border">{{ $index + 1 }}</td>
                     @elseif (is_callable($field))
-                        <td class="border">{{ $field($item) }}</td>
+                        <td class="border text-center">{{ $field($item) }}</td>
+                    @elseif ($field === 'status')
+                    <td class="border text-center">
+                        @if ($item[$field] === 0)
+                            <p class="bg-red-500 rounded-md text-white text-sm py-2 font-medium">Pending</p>
+                        @else
+                        <p class="bg-green-500 rounded-md text-white text-sm py-2">Approve</p>
+                        @endif
+                    </td>
                     @else
-                        <td class="border">{{ $item[$field] }}</td>
+                        <td class="border text-center">{{ $item[$field] }}</td>
                     @endif
                 @endforeach
 
                 @if ($aksi == true)
-                <td class="border text-center w-[200px]">
-                    @if ($actionUpdate == true)
-                        <button class="btn-update openModal" data-action="edit"
-                            @foreach ($data as $index)
-                            @foreach ($index as $key => $value) 
-                            data-{{ $key }} = "{{ $value }}" @endforeach
-                            @endforeach
-                            >Edit
-                        </button>
-                    @endif
-                    @if ($actionDelete == true)
-                        <button class="btn-delete openModal" id="deleteData" data-action="delete"
-                            @foreach ($data as $index)
-                            @foreach ($index as $key => $value) 
-                            data-{{ $key }} = "{{ $value }}" @endforeach
-                            @endforeach
-                            >Delete</button>
-                    @endif
+                    <td class="border text-center w-[200px]">
+                        @if ($actionUpdate == true)
+                            <button class="btn-update" id="updateData" data-target="#modalEdit"
+                                onclick="editData({{ json_encode($item) }})">Edit
+                            </button>
+                        @endif
+                        @if ($actionDelete == true)
+                            <button class="btn-delete" id="deleteData" data-target="#modalDelete"
+                                onclick="hapusData({{ json_encode($item) }})">Delete</button>
+                        @endif
 
-                </td>
+                        @if ($actionShow == true)
+                            <button class="btn-show" id="showData" data-target="#modalDelete"
+                                onclick="showData({{ json_encode($item) }})">Detail</button>
+                        @endif
+
+                    </td>
                 @endif
             </tr>
         @endforeach

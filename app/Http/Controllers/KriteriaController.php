@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Traits\MasterCRUD;
+use App\Models\Kriteria;
 use Illuminate\Http\Request;
 
 class KriteriaController extends Controller
@@ -12,21 +13,23 @@ class KriteriaController extends Controller
 
     public function __construct()
     {
+
+        $newKode = Kriteria::generateUniqueKode();
+
         $this->setViewFolder('pages.master.kriteria');
         $this->setModel(\App\Models\Kriteria::class);
         $this->setTitle('Kriteria');
 
         $this->setValidationRule([
+            'kode' => 'required', 
             'nama_kriteria' => 'required', 
-            'bobot' => 'required', 
-            'kriteria' => 'required|in:BENEFIR,COST', 
+            'kriteria' => 'required|in:BENEFIT,COST', 
             'keterangan' => 'required'
         ]);
 
         $this->setValidationRuleMassage([
+            'kode.required' => 'Masukan Kode Kriteria', 
             'nama_kriteria.required' => 'Masukan Nama Kriteria', 
-            'bobot.required' => 'Masukan Bobot Kriteria', 
-            'kriteria.required' => 'Masukan Tipe Kriteria',
             'kriteria.in' => 'Tipe Kriteria harus BENEFIT atau COST', 
             'keterangan.required' => 'Masukan Keterangan'
         ]);

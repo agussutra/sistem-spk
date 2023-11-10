@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Traits\MasterCRUD;
+use App\Models\Kriteria;
 use Illuminate\Http\Request;
 
 class SubkriteriaController extends Controller
@@ -9,56 +11,27 @@ class SubkriteriaController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        return view('pages.master.sub_kriteria.list_sub_kriteria');
-    }
+    use MasterCRUD;
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function __construct()
     {
-        //
-    }
+        $kriteria = Kriteria::all();
+        $this->setViewFolder('pages.master.nilai_kriteria',['kriteria' => $kriteria]);
+        $this->setModel(\App\Models\Kriteria::class);
+        $this->setTitle('Sub Kriteria');
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        $this->setValidationRule([
+            'kode' => 'required', 
+            'nama_kriteria' => 'required', 
+            'kriteria' => 'required|in:BENEFIT,COST', 
+            'keterangan' => 'required'
+        ]);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        $this->setValidationRuleMassage([
+            'kode.required' => 'Masukan Kode Kriteria', 
+            'nama_kriteria.required' => 'Masukan Nama Kriteria', 
+            'kriteria.in' => 'Tipe Kriteria harus BENEFIT atau COST', 
+            'keterangan.required' => 'Masukan Keterangan'
+        ]);
     }
 }
