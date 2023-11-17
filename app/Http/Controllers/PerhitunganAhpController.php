@@ -36,7 +36,7 @@ class PerhitunganAhpController extends Controller
 
     public function index()
     {
-        $data = PerhitunganAhp::with('nasabah')->latest()->get()->map(function ($item) {
+        $data = PerhitunganAhp::with('nasabah')->get()->map(function ($item) {
             $item->spk_data = Spk::with(['kriteria','nilaiKriteria'])->where('permohonan_id', $item->id)->get();
             return $item;
         });

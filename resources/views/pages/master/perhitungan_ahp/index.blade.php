@@ -19,22 +19,38 @@
             <hr class="mb-2">
             {{-- list table --}}
             <div>
-                @include('components.table', [
-                    'headers' => ['No', 'Nama Nasabah', 'Status', 'Nominal Peminjaman'],
-                    'data' => $data,
-                    'mapping' => [
-                        '__INCREMENT__',
-                        function ($a) {
-                            return $a->nasabah?->nama_nasabah;
-                        },
-                        'status',
-                        'nominal_peminjaman',
-                    ],
-                    'actionUpdate' => true,
-                    'actionDelete' => false,
-                    'actionShow' => true,
-                    'aksi' => true,
-                ])
+                <table class="h-full w-full" id="table">
+                    <thead>
+                        <tr>
+                            <th rowspan="2">Nasabah</th>
+                            <th rowspan="2">Nominal</th>
+                            <th rowspan="2">Status</th>
+                            <th colspan="5">AHP</th>
+                            <th rowspan="2">Ranking</th>
+                        </tr>
+                        <tr>
+
+                            <th>K1</th>
+                            <th>K2</th>
+                            <th>K3</th>
+                            <th>K4</th>
+                            <th>K5</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($data as $index => $item)
+                            <tr>
+                               <td>{{$item->nasabah?->nama_nasabah}}</td>
+                               <td>{{$item->nominal_peminjaman}}</td>
+                               <td>{{$item->status == 0 ? "Pending" : ($item->status == 1 ? "Diterima": "Ditolak")}}</td>
+                               @foreach ($item->spk as $ahp)
+                                <td>{{ \App\Helper\SPK::AHP[$ahp->kode_kriteria][$ahp->kode_nilai_kriteria] }}</td>
+                               @endforeach
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>                
             </div>
         </div>
 

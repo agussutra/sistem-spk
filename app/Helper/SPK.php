@@ -79,7 +79,7 @@ class SPK {
             })->toArray();
         });
 
-
+        dd($matriks_normlaisasi_terbobot);
         $group_kriteria = [];
         foreach($matriks_normlaisasi_terbobot as $value) {
             foreach($value as $i => $v) {

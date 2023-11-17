@@ -58,7 +58,7 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'kode_kriteria' => 'K02',
-                'kode' => 'K01-3',
+                'kode' => 'K02-3',
                 'nilai_kriteria' => 'PNS',
                 'nilai' => 5
             ],
@@ -117,5 +117,210 @@ class DatabaseSeeder extends Seeder
                 'nilai' => 5
             ],
         ], 'kode');
+
+        DB::table('nasabah')->upsert([
+            [
+                'id' => 1,
+                'nama_nasabah' => 'I Wayan Sulasmi',
+                'jk' => 2,
+                'no_hp' => '099288822222',
+                'alamat' => 'Jln. Kdongan',
+                'pekerjaan' => 'Wira Usaha'
+            ],
+            [
+                'id' => 2,
+                'nama_nasabah' => 'Putu Eka Juliawan',
+                'jk' => 1,
+                'no_hp' => '0817992922',
+                'alamat' => 'Jln. Bdung',
+                'pekerjaan' => 'PNS'
+            ],
+            [
+                'id' => 3,
+                'nama_nasabah' => 'I Wayan Arya',
+                'jk' => 1,
+                'no_hp' => '0828773773773',
+                'alamat' => 'Jln. Sumiang',
+                'pekerjaan' => 'Pekerja Lepas'
+            ],
+            [
+                'id' => 4,
+                'nama_nasabah' => 'I Wayan Gede Sarjana',
+                'jk' => 1,
+                'no_hp' => '087288662772',
+                'alamat' => 'Jln. Bukittinggi',
+                'pekerjaan' => 'PNS'
+            ],
+            [
+                'id' => 5,
+                'nama_nasabah' => 'Eri Kurniasih',
+                'jk' => 2,
+                'no_hp' => '0828773373',
+                'alamat' => 'Jln. Kuta',
+                'pekerjaan' => 'Pekerja Lepas'
+            ],
+        ], 'id');
+
+        // permohonan
+        DB::table('permohonan')->upsert([
+            [
+                'id' => 1,
+                'nasabah_id' => 1,
+                'status' => 0,
+            ],
+            [
+                'id' => 2,
+                'nasabah_id' => 2,
+                'status' => 0,
+            ],
+            [
+                'id' => 3,
+                'nasabah_id' => 3,
+                'status' => 0,
+            ],
+            [
+                'id' => 4,
+                'nasabah_id' => 4,
+                'status' => 0,
+            ],
+            [
+                'id' => 5,
+                'nasabah_id' => 5,
+                'status' => 0,
+            ]
+        ],'id');
+
+        // truncate
+        DB::table('spk')->truncate();
+
+        DB::table('spk')->insert([
+            [
+                'permohonan_id' => 1,
+                'kode_kriteria' => 'K01',
+                'kode_nilai_kriteria' => 'K01-3',
+            ],
+            [
+                'permohonan_id' => 1,
+                'kode_kriteria' => 'K02',
+                'kode_nilai_kriteria' => 'K02-2',
+            ],
+            [
+                'permohonan_id' => 1,
+                'kode_kriteria' => 'K03',
+                'kode_nilai_kriteria' => 'K03-2',
+            ],
+            [
+                'permohonan_id' => 1,
+                'kode_kriteria' => 'K04',
+                'kode_nilai_kriteria' => 'K04-1',
+            ],
+            [
+                'permohonan_id' => 1,
+                'kode_kriteria' => 'K05',
+                'kode_nilai_kriteria' => 'K05-1',
+            ],
+            [
+                'permohonan_id' => 2,
+                'kode_kriteria' => 'K01',
+                'kode_nilai_kriteria' => 'K01-3',
+            ],
+            [
+                'permohonan_id' => 2,
+                'kode_kriteria' => 'K02',
+                'kode_nilai_kriteria' => 'K02-3',
+            ],
+            [
+                'permohonan_id' => 2,
+                'kode_kriteria' => 'K03',
+                'kode_nilai_kriteria' => 'K03-2',
+            ],
+            [
+                'permohonan_id' => 2,
+                'kode_kriteria' => 'K04',
+                'kode_nilai_kriteria' => 'K04-2',
+            ],
+            [
+                'permohonan_id' => 2,
+                'kode_kriteria' => 'K05',
+                'kode_nilai_kriteria' => 'K05-2',
+            ],
+            [
+                'permohonan_id' => 3,
+                'kode_kriteria' => 'K01',
+                'kode_nilai_kriteria' => 'K01-2',
+            ],
+            [
+                'permohonan_id' => 3,
+                'kode_kriteria' => 'K02',
+                'kode_nilai_kriteria' => 'K02-1',
+            ],
+            [
+                'permohonan_id' => 3,
+                'kode_kriteria' => 'K03',
+                'kode_nilai_kriteria' => 'K03-1',
+            ],
+            [
+                'permohonan_id' => 3,
+                'kode_kriteria' => 'K04',
+                'kode_nilai_kriteria' => 'K04-1',
+            ],
+            [
+                'permohonan_id' => 3,
+                'kode_kriteria' => 'K05',
+                'kode_nilai_kriteria' => 'K05-1',
+            ],
+            [
+                'permohonan_id' => 4,
+                'kode_kriteria' => 'K01',
+                'kode_nilai_kriteria' => 'K01-3',
+            ],
+            [
+                'permohonan_id' => 4,
+                'kode_kriteria' => 'K02',
+                'kode_nilai_kriteria' => 'K02-3',
+            ],
+            [
+                'permohonan_id' => 4,
+                'kode_kriteria' => 'K03',
+                'kode_nilai_kriteria' => 'K03-2',
+            ],
+            [
+                'permohonan_id' => 4,
+                'kode_kriteria' => 'K04',
+                'kode_nilai_kriteria' => 'K04-3',
+            ],
+            [
+                'permohonan_id' => 4,
+                'kode_kriteria' => 'K05',
+                'kode_nilai_kriteria' => 'K05-2',
+            ],
+            [
+                'permohonan_id' => 5,
+                'kode_kriteria' => 'K01',
+                'kode_nilai_kriteria' => 'K01-2',
+            ],
+            [
+                'permohonan_id' => 5,
+                'kode_kriteria' => 'K02',
+                'kode_nilai_kriteria' => 'K02-1',
+            ],
+            [
+                'permohonan_id' => 5,
+                'kode_kriteria' => 'K03',
+                'kode_nilai_kriteria' => 'K03-1',
+            ],
+            [
+                'permohonan_id' => 5,
+                'kode_kriteria' => 'K04',
+                'kode_nilai_kriteria' => 'K04-1',
+            ],
+            [
+                'permohonan_id' => 5,
+                'kode_kriteria' => 'K05',
+                'kode_nilai_kriteria' => 'K05-1',
+            ],
+        ]);
+
+
     }
 }

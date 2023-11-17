@@ -22,4 +22,8 @@ class Spk extends Model
         return $this->hasOne(NilaiKriteria::class, 'kode', 'kode_nilai_kriteria');
     }
 
+    public function nilai() {
+        return $this->hasOne(NilaiKriteria::class, 'kode', 'kode_nilai_kriteria');
+    }
+
 }

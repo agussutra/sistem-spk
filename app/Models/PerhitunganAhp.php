@@ -11,12 +11,13 @@ class PerhitunganAhp extends Model
 
     protected $table = 'permohonan';
     protected $fillable = ['nasabah_id','status', 'nominal_peminjaman'];
+    public $timestamp = false;
 
     public function nasabah(){
         return $this->belongsTo(Nasabah::class , 'nasabah_id' , 'id');
     }
 
     public function spk() {
-        return $this->belongsToMany(Kriteria::class, 'spk', 'permohonan_id' , 'kode_kriteria')->using(Spk::class)->withPivot(['kode_kriteria' , 'kode_nilai_kriteria']);
+        return $this->hasMany(Spk::class, 'permohonan_id', 'id');
     }
 }
