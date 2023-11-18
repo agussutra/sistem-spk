@@ -125,7 +125,8 @@ class DatabaseSeeder extends Seeder
                 'jk' => 2,
                 'no_hp' => '099288822222',
                 'alamat' => 'Jln. Kdongan',
-                'pekerjaan' => 'Wira Usaha'
+                'pekerjaan' => 'Wira Usaha',
+                'created_at' => '2023-11-01'
             ],
             [
                 'id' => 2,
@@ -133,7 +134,8 @@ class DatabaseSeeder extends Seeder
                 'jk' => 1,
                 'no_hp' => '0817992922',
                 'alamat' => 'Jln. Bdung',
-                'pekerjaan' => 'PNS'
+                'pekerjaan' => 'PNS',
+                'created_at' => '2023-10-01'
             ],
             [
                 'id' => 3,
@@ -141,7 +143,8 @@ class DatabaseSeeder extends Seeder
                 'jk' => 1,
                 'no_hp' => '0828773773773',
                 'alamat' => 'Jln. Sumiang',
-                'pekerjaan' => 'Pekerja Lepas'
+                'pekerjaan' => 'Pekerja Lepas',
+                'created_at' => '2023-09-01'
             ],
             [
                 'id' => 4,
@@ -149,7 +152,8 @@ class DatabaseSeeder extends Seeder
                 'jk' => 1,
                 'no_hp' => '087288662772',
                 'alamat' => 'Jln. Bukittinggi',
-                'pekerjaan' => 'PNS'
+                'pekerjaan' => 'PNS',
+                'created_at' => '2023-09-01'
             ],
             [
                 'id' => 5,
@@ -157,7 +161,8 @@ class DatabaseSeeder extends Seeder
                 'jk' => 2,
                 'no_hp' => '0828773373',
                 'alamat' => 'Jln. Kuta',
-                'pekerjaan' => 'Pekerja Lepas'
+                'pekerjaan' => 'Pekerja Lepas',
+                'created_at' => '2023-09-01'
             ],
         ], 'id');
 

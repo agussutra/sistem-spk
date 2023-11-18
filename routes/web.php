@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KriteriaController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\LoginController;
@@ -31,9 +32,7 @@ Route::get('spk', function () {
 
 Route::middleware('auth')->group(function () {
     
-    Route::get('/', function () {
-        return view('pages.master.dashboard');
-    })->name('dashboard');
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::resource('kriteria', KriteriaController::class)->names('kriteria');
     Route::resource('sub_kriteria', NilaiKriteriaController::class)->names('sub_kriteria');
@@ -42,6 +41,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('perhitungan_ahp', PerhitunganAhpController::class)->names('perhitungan_ahp');
     Route::resource('permohonan', PermohonanController::class)->names('permohonan');
     Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan');
+    Route::get('/pdf', [LaporanController::class, 'pdf'])->name('pdf');
 
     
     Route::delete('logout', [AuthController::class, 'logout']);

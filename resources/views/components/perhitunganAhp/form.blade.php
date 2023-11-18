@@ -30,7 +30,7 @@
             @endforeach
         </div>
     </div>
-
+<input type="hidden" id="updateStatus" name="updateStatus">
 </div>
 
 {{-- read form --}}
