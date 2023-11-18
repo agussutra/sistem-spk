@@ -41,16 +41,22 @@
                     <tbody>
                         @foreach ($data as $index => $item)
                             <tr>
-                               <td>{{$item->nasabah?->nama_nasabah}}</td>
-                               <td>{{$item->nominal_peminjaman}}</td>
-                               <td>{{$item->status == 0 ? "Pending" : ($item->status == 1 ? "Diterima": "Ditolak")}}</td>
-                               @foreach ($item->spk as $ahp)
-                                <td>{{ \App\Helper\SPK::AHP[$ahp->kode_kriteria][$ahp->kode_nilai_kriteria] }}</td>
-                               @endforeach
+                                <td>{{ $item->nasabah?->nama_nasabah }}</td>
+                                <td>{{ $item->nominal_peminjaman }}</td>
+                                <td>
+                                    <button onclick="return updateStatus('{{ $item->id }}','{{ $item->status }}');"
+                                        class="p-1 {{ $item->status == 0 ? 'bg-yellow-400' : ($item->status == 1 ? 'bg-green-600' : 'bg-red-600') }}  rounded-md text-white font-semibold">
+                                        {{ $item->status == 0 ? 'Pending' : ($item->status == 1 ? 'Diterima' : 'Ditolak') }}
+                                    </button>
+                                </td>
+                                @foreach ($item->spk as $ahp)
+                                    <td>{{ \App\Helper\SPK::AHP[$ahp->kode_kriteria][$ahp->kode_nilai_kriteria] }}</td>
+                                @endforeach
+                                <td>{{ number_format($item->value_preferensi, 4, '.', ',') }}</td>
                             </tr>
                         @endforeach
                     </tbody>
-                </table>                
+                </table>
             </div>
         </div>
 
@@ -70,6 +76,8 @@
             $('#status').val('');
             $('#nominal_peminjaman').val('');
             $('#idkriteria').val('');
+            $('#updateStatus').val('');
+
             daftarSpkData.innerHTML = '';
         });
 
@@ -144,6 +152,25 @@
             $('#form-modal-read').removeClass('hidden');
 
             modal.removeClass('hidden');
+        }
+
+        function updateStatus(id, status) {
+
+            var Valuestatus = parseInt(status) + 1;
+
+            if (Valuestatus < 3) {
+                const formAction = '{{ route('perhitungan_ahp.index') }}/' + id;
+                const formMethod = 'POST';
+
+                form.append('<input type="hidden" value="PUT" name="_method"/>');
+
+                form.attr('action', formAction);
+                form.attr('method', formMethod);
+
+                modal.find('#updateStatus').val(Valuestatus);
+                document.getElementById('formModal').submit();
+            }
+
         }
 
 

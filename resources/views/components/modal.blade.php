@@ -9,7 +9,7 @@
               <div class="mt-3 text-center sm:mt-0 sm:text-left">
                 <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title"><span id="titleModal"></span></h3>
                 <div class="mt-8">
-                <form action="{{ $formAction }}" method="POST">
+                <form action="{{ $formAction }}" method="POST" id="formModal">
                     @csrf
                     @includeIf($formData)
                 </div>

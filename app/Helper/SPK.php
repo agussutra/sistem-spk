@@ -1,10 +1,14 @@
 <?php
+
 namespace App\Helper;
 
+use App\Models\PerhitunganAhp;
 use App\Models\Permohonan;
 use Illuminate\Support\Facades\DB;
 
-class SPK {
+
+class SPK
+{
 
     const W = [0.351, 0.351, 0.173, 0.062, 0.059];
     const AHP = [
@@ -35,41 +39,44 @@ class SPK {
         ]
     ];
 
-    public function data() {
+    public function data()
+    {
         return Permohonan::where('status', 0)
             ->get();
     }
 
-    static function spk() {
-        
+    static function spk()
+    {
+
         $temporary_data = collect();
 
-        (new static)->data()->each(function($permohonan) use ($temporary_data) {
+        (new static)->data()->each(function ($permohonan) use ($temporary_data) {
             $temporary_data->put(
-                $permohonan->id, $permohonan->spk->pluck('nilai.nilai')->toArray()
+                $permohonan->id,
+                $permohonan->spk->pluck('nilai.nilai')->toArray()
             );
         });
 
         $matriks_keputusan_ternormalisasi = collect([]);
 
         $temporary_data->each(function ($item, $key) use ($matriks_keputusan_ternormalisasi, $temporary_data) {
-            
+
             $res = [];
 
-            foreach($item as $index => $value) {
+            foreach ($item as $index => $value) {
+
                 $pembagi = $temporary_data->toArray();
                 $pow_pembagi = 0;
-                foreach($pembagi as $pem) {
-                        $pow_pembagi += pow($pem[$index], 2);
+                foreach ($pembagi as $pem) {
+                    $pow_pembagi += pow($pem[$index], 2);
                 }
 
                 $sqrt_pembagi = sqrt($pow_pembagi);
 
-                $res[$index] = $value/$sqrt_pembagi;
+                $res[$index] = $value / $sqrt_pembagi;
             }
 
             $matriks_keputusan_ternormalisasi->put($key, $res);
-
         });
 
         // matriks normaliasai terbobot
@@ -78,11 +85,10 @@ class SPK {
                 return $value * self::W[$index];
             })->toArray();
         });
-
-        dd($matriks_normlaisasi_terbobot);
+        
         $group_kriteria = [];
-        foreach($matriks_normlaisasi_terbobot as $value) {
-            foreach($value as $i => $v) {
+        foreach ($matriks_normlaisasi_terbobot as $value) {
+            foreach ($value as $i => $v) {
                 $group_kriteria[$i][] = $v;
             }
         }
@@ -94,10 +100,46 @@ class SPK {
         // solusi ideal negatif
         $solusi_ideal_negatif = collect($group_kriteria)->map(function ($value) {
             return min($value);
+        })->toArray();    
+
+        $jarak_alternatif_positif = collect($group_kriteria)->map(function ($data) use ($solusi_ideal_positif) {
+            return collect($data)->map(function ($value, $key) use ($solusi_ideal_positif){
+                return pow(($solusi_ideal_positif[$key] - $value),2); 
+            });
         })->toArray();
 
-        dd($solusi_ideal_positif, $solusi_ideal_negatif, $group_kriteria);
+        $jarak_alternatif_negatif = collect($group_kriteria)->map(function ($data) use ($solusi_ideal_negatif){
+            return collect($data)->map(function ($value, $key) use ($solusi_ideal_negatif){
+                return pow(($solusi_ideal_negatif[$key] - $value),2);
+            });
+        })->toArray();
 
+        $alternatif_solusi_ideal_positif = collect($jarak_alternatif_positif)->map(function ($value){
+            return sqrt(array_sum($value));
+        })->toArray();
+
+        $alternatif_solusi_ideal_negatif = collect($jarak_alternatif_negatif)->map(function ($value){
+            return sqrt(array_sum($value));
+        })->toArray();
+
+        $nilai_preferensi = array_map(function ($alternatif_solusi_ideal_positif, $alternatif_solusi_ideal_negatif) {
+            return [
+                'value_preferensi' => $alternatif_solusi_ideal_negatif / $alternatif_solusi_ideal_positif + $alternatif_solusi_ideal_negatif,
+
+            ]; 
+        }, $alternatif_solusi_ideal_positif, $alternatif_solusi_ideal_negatif);
+
+        $ranking = collect($nilai_preferensi)->map(function ($preferensi, $permohonan) {
+            $permohonan = PerhitunganAhp::with(['nasabah'])->find($permohonan +1);
+            $permohonan->value_preferensi = $preferensi['value_preferensi'];
+            return $permohonan;
+        })->sortBy([
+            ['approve' , 'desc'],
+            ['value_preferensi', 'desc']
+        ]);
+        
+
+        return $ranking;
     }
-
+    
 }

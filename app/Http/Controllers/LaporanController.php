@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use PDF;
 
 class LaporanController extends Controller
 {
@@ -11,54 +12,20 @@ class LaporanController extends Controller
      */
     public function index()
     {
-        return view('pages.master.laporan.list_laporan');
+        $data = \App\Helper\SPK::spk();
+        return view('pages.master.laporan.list_laporan', compact('data'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function pdf()
     {
-        //
-    }
+        $data = \App\Helper\SPK::spk()->toArray();
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        $pdf = PDF::loadView('pages.master.laporan.pdf',compact('data'));
+        return $pdf->download('laporan.pdf');
+        
+        
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helper\SPK as HelperSPK;
 use App\Http\Traits\MasterCRUD;
 use App\Models\Kriteria;
 use App\Models\Nasabah;
@@ -36,10 +37,7 @@ class PerhitunganAhpController extends Controller
 
     public function index()
     {
-        $data = PerhitunganAhp::with('nasabah')->get()->map(function ($item) {
-            $item->spk_data = Spk::with(['kriteria','nilaiKriteria'])->where('permohonan_id', $item->id)->get();
-            return $item;
-        });
+        $data = \App\Helper\SPK::spk();
 
         $nasabah = Nasabah::all();
         return view('pages.master.perhitungan_ahp.index', compact('data', 'nasabah'));
@@ -82,27 +80,14 @@ class PerhitunganAhpController extends Controller
     public function update(Request $request, $id)
     {
         DB::beginTransaction();
-
         try {
             $permohonan = PerhitunganAhp::find($id);
             $permohonan->update([
-                'nasabah_id' => $request->nasabah_id,
-                'status' => $request->status,
-                'nominal_peminjaman' => $request->nominal_peminjaman
+                'status' => $request->updateStatus,
             ]);
-
-            foreach ($request->kriteria as $kriteria => $nilai_kriteria) {
-                 Spk::where('permohonan_id', $id)->updateOrInsert([
-                    'kode_kriteria' => $kriteria,
-                    'kode_nilai_kriteria' => $nilai_kriteria,
-                    'permohonan_id' => $id
-                ]);
-            }
-
             DB::commit();
             return redirect()->back()->with('success', "Data {$this->title} berhasil diubah");
         }catch(\Exception $ex){
-            @dd($ex->getMessage());
             DB::rollBack();
             return redirect()->back()->with('error', "Data {$this->title} gagal diubah");
         }

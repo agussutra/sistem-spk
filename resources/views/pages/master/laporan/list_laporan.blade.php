@@ -1,30 +1,46 @@
 @extends('pages.layout')
 @section('content')
-@php
-    $formAction = '';
-    $formMethod = '';
-@endphp
+    @php
+        $formAction = '';
+        $formMethod = '';
+    @endphp
 
     <div>
         <div class="mb-4 text-2xl font-bold">
-            <p>Kelayakan Pemberian Kredit</p>
+            <p >Kelayakan Pemberian Kredit</p>
         </div>
         <div class="card">
-            <button type="button" class="float-right ml-auto mb-5 bg-blue-400 hover:bg-blue-500 p-2 text-sm text-white shadow-md rounded-md" id="cetakLaporan">Cetak Laporan</button>
+            <a href="{{ route('pdf') }}"
+                class="float-right ml-auto mb-5 bg-blue-400 hover:bg-blue-500 p-2 text-sm text-white shadow-md rounded-md"
+                id="cetakLaporan">Cetak Laporan</a>
             {{-- list table --}}
             <div>
-                @include('components.table', [
-                    'headers' => ['No', 'Alternatif', 'Nama Nasabah', 'Total Nilai','Keterangan','Ranking'],
-                    'data' => [['id' => '123', 'alternatif' => 'A01', 'nama_nasabah' => 'laksmi', 'total_nilai' => '0,26', 'keterangan' => 'Layak', 'ranking' => '1']],
-                    'mapping' => ['__INCREMENT__', 'alternatif', 'nama_nasabah', 'total_nilai','keterangan','ranking'],
-                    'actionUpdate' => true,
-                    'actionDelete' => true,
-                    'aksi' => false,
-                ])
+                <table class="h-full w-full" id="table">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Nama Nasabah</th>
+                            <th>Nilai</th>
+                            <th>Ranking</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @php
+                            $i = 1;
+                            $ranking = 1;
+                        @endphp
+                        @foreach ($data as $dt)
+                            <tr>
+                                <td>{{ $i++ }}</td>
+                                <td>{{ $dt->nasabah->nama_nasabah }}</td>
+                                <td class="text-right">{{ number_format($dt->value_preferensi, 4, '.', ',') }}</td>
+                                <td class="text-center">{{ $ranking ++ }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
-    <script>
-        
-    </script>
+    <script></script>
 @endsection
