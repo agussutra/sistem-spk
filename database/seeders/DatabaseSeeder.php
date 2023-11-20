@@ -222,7 +222,7 @@ class DatabaseSeeder extends Seeder
             [
                 'permohonan_id' => 1,
                 'kode_kriteria' => 'K05',
-                'kode_nilai_kriteria' => 'K05-1',
+                'kode_nilai_kriteria' => 'K05-3',
             ],
             [
                 'permohonan_id' => 2,
@@ -247,7 +247,7 @@ class DatabaseSeeder extends Seeder
             [
                 'permohonan_id' => 2,
                 'kode_kriteria' => 'K05',
-                'kode_nilai_kriteria' => 'K05-2',
+                'kode_nilai_kriteria' => 'K05-3',
             ],
             [
                 'permohonan_id' => 3,
@@ -297,7 +297,7 @@ class DatabaseSeeder extends Seeder
             [
                 'permohonan_id' => 4,
                 'kode_kriteria' => 'K05',
-                'kode_nilai_kriteria' => 'K05-2',
+                'kode_nilai_kriteria' => 'K05-3',
             ],
             [
                 'permohonan_id' => 5,

@@ -26,7 +26,7 @@
                             <th rowspan="2">Nominal</th>
                             <th rowspan="2">Status</th>
                             <th colspan="5">AHP</th>
-                            <th rowspan="2">Ranking</th>
+                            <th rowspan="2">Hasil Topsis</th>
                         </tr>
                         <tr>
 

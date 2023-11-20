@@ -5,7 +5,7 @@
     <!-- State cards -->
     <div class="grid grid-cols-1 gap-8 p-4 lg:grid-cols-2 xl:grid-cols-3">
         <!-- Value card -->
-        <div class="flex items-center justify-between p-4 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-md dark:bg-darker">
+        <div class="flex items-center justify-between p-4 bg-gradient-to-r from-green-500 to-blue-500 rounded-md dark:bg-darker">
             <div>
                 <h6
                     class="text-xs font-medium leading-none tracking-wider text-white uppercase dark:text-primary-light">
@@ -67,13 +67,13 @@
             </div>
         </div>
     </div>
-    <div class="w-full bg-white p-3 rounded-md shadow-md mt-4">
+    {{-- <div class="w-full bg-white p-3 rounded-md shadow-md mt-4">
         <figure class="highcharts-figure">
             <div id="container"></div>
             <p class="highcharts-description">
             </p>
         </figure>
-    </div>
+    </div> --}}
 </div>
 <script>
     const chart = Highcharts.chart('container', {

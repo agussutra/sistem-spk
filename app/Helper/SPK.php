@@ -53,27 +53,29 @@ class SPK
         (new static)->data()->each(function ($permohonan) use ($temporary_data) {
             $temporary_data->put(
                 $permohonan->id,
-                $permohonan->spk->pluck('nilai.nilai')->toArray()
+                $permohonan->spk->pluck('nilai.kode')->toArray()
             );
         });
 
         $matriks_keputusan_ternormalisasi = collect([]);
-
+        
         $temporary_data->each(function ($item, $key) use ($matriks_keputusan_ternormalisasi, $temporary_data) {
 
             $res = [];
 
             foreach ($item as $index => $value) {
 
-                $pembagi = $temporary_data->toArray();
-                $pow_pembagi = 0;
-                foreach ($pembagi as $pem) {
-                    $pow_pembagi += pow($pem[$index], 2);
-                }
+                // $pembagi = $temporary_data->toArray();
+                // $pow_pembagi = 0;
+                // foreach ($pembagi as $pem) {
+                //     $pow_pembagi += pow($pem[$index], 2);
+                // }
 
-                $sqrt_pembagi = sqrt($pow_pembagi);
+                // $sqrt_pembagi = sqrt($pow_pembagi);
 
-                $res[$index] = $value / $sqrt_pembagi;
+                // $res[$index] = $value / $sqrt_pembagi;
+                $k = explode('-', $value)[0];
+                $res[$index] = self::AHP[$k][$value];
             }
 
             $matriks_keputusan_ternormalisasi->put($key, $res);

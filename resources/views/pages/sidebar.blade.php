@@ -12,7 +12,7 @@ class="flex-shrink-0 hidden w-64 bg-black border-r dark:border-primary-darker da
             <div class="text-center font-semibold">User</div>
         </div>
         <nav aria-label="Main"
-            class="flex-1 px-2 py-4 space-y-2 overflow-y-hidden hover:overflow-y-auto">
+            class="flex-1 px-2 py-4 space-y-2 overflow-y-auto hover:overflow-y-auto">
             <a href="/"
                 class=" @if(Request::is('/')) bg-green-600 @endif menu-item flex items-center p-2 text-white transition-colors rounded-md dark:text-light hover:bg-primary-100 dark:hover:bg-primary">
                 <span aria-hidden="true">
