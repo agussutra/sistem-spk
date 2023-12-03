@@ -60,7 +60,7 @@
 
             form.attr('action', formAction);
             form.attr('method', formMethod);
-
+console.log(item)
             // isian form
             modal.find('#nama_nasabah').val(item.nama_nasabah);
             modal.find('#no_hp').val(item.no_hp);
@@ -122,3 +122,13 @@
         });
     </script>
 @endsection
+
+@push('js')
+<script>
+$("#pekerjaan").select2({
+  tags: true,
+  width: '100%',
+  height: '100px'
+});
+</script>
+@endpush

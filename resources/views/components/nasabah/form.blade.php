@@ -7,11 +7,20 @@
     <input type="text" name="alamat" id="alamat" class="input-form">
     <div>
         <label for="pekerjaan" class="block text-sm font-medium leading-6 text-gray-900 mb-2">Pekerjaan</label>
-        <select name="pekerjaan" id="pekerjaan" class="dropdown-input text-black">
+        <select name="pekerjaan" id="pekerjaan" class="dropdown-input text-black w-full">
             <option>Pilih Pekerjaan</option>
+            @php
+                $data_pekerjaan = \App\Models\Nasabah::select('pekerjaan')->groupBy('pekerjaan')->get();
+            @endphp
+            @if($data_pekerjaan->count() !== 0)
+            @foreach (\App\Models\Nasabah::select('pekerjaan')->groupBy('pekerjaan')->get() as $item)                
+                <option value="{{ $item->pekerjaan }}">{{ $item->pekerjaan }}</option>
+            @endforeach
+            @else
             <option value="PNS">PNS</option>
-            <option value="Wirausaha" >Wirausaha</option>
-            <option value="Pekerja Lepas">Pekerja Lepas</option>
+            <option value="Pekerja Lepass">Pekerja Lepas</option>
+            <option value="Wirausaha">Wirausaha</option>
+            @endif
         </select>
     </div>
     <div>
