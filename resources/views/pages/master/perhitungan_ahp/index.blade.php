@@ -24,9 +24,9 @@
                         <tr>
                             <th rowspan="2">Nasabah</th>
                             <th rowspan="2">Nominal</th>
-                            <th rowspan="2">Status</th>
                             <th colspan="5">AHP</th>
                             <th rowspan="2">Hasil Topsis</th>
+                            <th rowspan="2" >Approval</th>
                         </tr>
                         <tr>
 
@@ -43,17 +43,28 @@
                             <tr>
                                 <td>{{ $item->nasabah?->nama_nasabah }}</td>
                                 <td>{{ $item->nominal_peminjaman }}</td>
-                                <td>
-                                    <button onclick="return updateStatus('{{ $item->id }}','{{ $item->status }}');"
-                                        class="p-1 {{ $item->status == 0 ? 'bg-yellow-400' : ($item->status == 1 ? 'bg-green-600' : 'bg-red-600') }}  rounded-md text-white font-semibold">
-                                        {{ $item->status == 0 ? 'Pending' : ($item->status == 1 ? 'Diterima' : 'Ditolak') }}
-                                    </button>
-                                </td>
                                 @foreach ($item->spk as $ahp)
                                     <td>{{ \App\Helper\SPK::AHP[$ahp->kode_kriteria][$ahp->kode_nilai_kriteria] }}</td>
                                 @endforeach
                                 <td>{{ number_format($item->value_preferensi, 4, '.', ',') }}</td>
-                            </tr>
+                                <td>
+                                    @if($item->status == 0)
+                                    <div class="flex justify-between">
+                                        <button onclick="return updateStatus('{{ $item->id }}','1');"
+                                            class="p-2 bg-green-600 rounded-md text-white font-semibold">
+                                            Approve
+                                        </button>
+                                        <button onclick="return updateStatus('{{ $item->id }}','2');"
+                                            class="p-2 bg-red-600 rounded-md text-white font-semibold">
+                                            Tolak
+                                        </button>
+                                    </div>
+                                    @else
+                                        <div class="{{ $item->status == 0 ? 'bg-yellow-400' : ($item->status == 1 ? 'bg-green-200' : 'bg-red-200') }} text-center rounded-md text-white font-semibold p-2">
+                                            {{ $item->status == 0 ? 'Pending' : ($item->status == 1 ? 'Diterima' : 'Ditolak') }}
+                                        </div>
+                                    @endif
+                                </td>
                         @endforeach
                     </tbody>
                 </table>
@@ -156,20 +167,19 @@
 
         function updateStatus(id, status) {
 
-            var Valuestatus = parseInt(status) + 1;
+            var Valuestatus = parseInt(status);
 
-            if (Valuestatus < 3) {
-                const formAction = '{{ route('perhitungan_ahp.index') }}/' + id;
-                const formMethod = 'POST';
+            const formAction = '{{ route('perhitungan_ahp.index') }}/' + id;
+            const formMethod = 'POST';
 
-                form.append('<input type="hidden" value="PUT" name="_method"/>');
+            form.append('<input type="hidden" value="PUT" name="_method"/>');
 
-                form.attr('action', formAction);
-                form.attr('method', formMethod);
+            form.attr('action', formAction);
+            form.attr('method', formMethod);
 
-                modal.find('#updateStatus').val(Valuestatus);
-                document.getElementById('formModal').submit();
-            }
+            modal.find('#updateStatus').val(Valuestatus);
+            document.getElementById('formModal').submit();
+        
 
         }
 

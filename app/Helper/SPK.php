@@ -41,8 +41,7 @@ class SPK
 
     public function data()
     {
-        return Permohonan::where('status', 0)
-            ->get();
+        return Permohonan::all();
     }
 
     static function spk()
@@ -126,7 +125,7 @@ class SPK
 
         $nilai_preferensi = array_map(function ($alternatif_solusi_ideal_positif, $alternatif_solusi_ideal_negatif) {
             return [
-                'value_preferensi' => $alternatif_solusi_ideal_negatif / $alternatif_solusi_ideal_positif + $alternatif_solusi_ideal_negatif,
+                'value_preferensi' => ($alternatif_solusi_ideal_negatif / ($alternatif_solusi_ideal_positif + $alternatif_solusi_ideal_negatif)),
 
             ]; 
         }, $alternatif_solusi_ideal_positif, $alternatif_solusi_ideal_negatif);

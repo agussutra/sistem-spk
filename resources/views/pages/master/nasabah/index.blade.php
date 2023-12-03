@@ -66,7 +66,7 @@
             modal.find('#no_hp').val(item.no_hp);
             modal.find('#jk').val(item.jk);
             modal.find('#alamat').val(item.alamat);
-            modal.find('#pekerjaan').val(item.pekerjaan);
+            modal.find('#pekerjaan').val(item.pekerjaan).change();
 
             // isian form
             $('#form-modal').removeClass('hidden');

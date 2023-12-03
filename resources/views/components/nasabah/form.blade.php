@@ -5,8 +5,15 @@
     <input type="text" name="no_hp" id="no_hp" class="input-form" placeholder="">
     <label for="alamat" class="block text-sm font-medium leading-6 text-gray-900 mb-2 mt-2">Alamat</label>
     <input type="text" name="alamat" id="alamat" class="input-form">
-    <label for="pekerjaan" class="block text-sm font-medium leading-6 text-gray-900 mb-2 mt-2">Pekerjaan</label>
-    <input type="text" name="pekerjaan" id="pekerjaan" class="input-form">
+    <div>
+        <label for="pekerjaan" class="block text-sm font-medium leading-6 text-gray-900 mb-2">Pekerjaan</label>
+        <select name="pekerjaan" id="pekerjaan" class="dropdown-input text-black">
+            <option>Pilih Pekerjaan</option>
+            <option value="PNS">PNS</option>
+            <option value="Wirausaha" >Wirausaha</option>
+            <option value="Pekerja Lepas">Pekerja Lepas</option>
+        </select>
+    </div>
     <div>
         <label for="jk" class="block text-sm font-medium leading-6 text-gray-900 mb-2">Jenis Kelamin</label>
         <select name="jk" id="jk" class="dropdown-input text-black">
