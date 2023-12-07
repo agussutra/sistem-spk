@@ -17,6 +17,10 @@ class DashboardController extends Controller
         $jumlahNasabah = Nasabah::count();
         $jumlahPermohonan = PerhitunganAhp::count();
 
-        return view('pages.master.dashboard', compact('nilaiPeminjaman','jumlahNasabah','jumlahPermohonan'));
+        $grafikKredit = Nasabah::select(DB::raw('count(*) as jumlah'), DB::raw('DATE_FORMAT(created_at, "%m") as month_year'))
+            ->groupBy('month_year')
+            ->get();
+
+        return view('pages.master.dashboard', compact('nilaiPeminjaman','jumlahNasabah','jumlahPermohonan', 'grafikKredit'));
     }
 }

@@ -99,6 +99,12 @@ class DatabaseSeeder extends Seeder
                 'nilai' => 5
             ],
             [
+                'kode_kriteria' => 'K04',
+                'kode' => 'K04-4',
+                'nilai_kriteria' => 'Sertifikat Bangunan',
+                'nilai' => 6
+            ],
+            [
                 'kode_kriteria' => 'K05',
                 'kode' => 'K05-1',
                 'nilai_kriteria' => '36',

@@ -17,9 +17,6 @@
                 <button type="button" class="btn-create openModal" id="createBtn" onclick="return tambahData();">Tambah</button>
             </div>
             <hr class="mb-2">
-            <div class="mb-5 p-2 bg-yellow-400 rounded-md">
-                <p>Kriteria: Nilai Jaminan</p>
-            </div>
             {{-- list table --}}
             <div>
                 @include('components.table', [
